@@ -1,1 +1,30 @@
 # Quest React Avançado - Pokedex
+
+(1) Limpar código inicial e instalar dependencias ✅
+    - react-router-dom (rotas internas)
+    - axios (requisição API)
+    - styled-components (CSS)
+
+(2) Implementar Home Page com 10 pokemons
+    - buscar os 10 primeiros pokemons na Poke API (https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0)
+    - renderizar os 10 pokemons na home page (5x2) - imagem e nome
+    - estilizar com styled-components
+    
+(3) Implementar botão "Carregar mais" que busca mais 10 pokemons e adiciona a lista atual:
+    - criar um botão "Carregar mais" logo abaixo da listagem atual
+    - buscar os próximos 10 pokemons (offset + 10)
+    - inserior os 10 próximos pokemons na home page quando o  botão for clicado
+
+(4) Implementar página interna com detalhes de cada pokemon da lista
+    - pagina interna replicavel para cada pokemon da lista:
+        - imagem
+        - nome
+        - lista de movimentos
+        - lista de habilidades (nome e texto descritivo)
+        - tipo do pokemon
+    - evento de click no pokemon da lista para acessar a sua respectiva pagina
+
+(5) Implementar botão para alternar tema entre claro e escuro
+    - implementar tema claro e escuro com contex API
+    - adicionar um botão para alternar o tema
+    
