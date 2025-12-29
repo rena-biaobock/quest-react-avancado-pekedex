@@ -6,10 +6,10 @@
     - styled-components (CSS)
 
 (2) Implementar Home Page com 10 pokemons
-    - buscar os 10 primeiros pokemons na Poke API (https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0)
+    - buscar os 10 primeiros pokemons na Poke API (<https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0>)
     - renderizar os 10 pokemons na home page (5x2) - imagem e nome
     - estilizar com styled-components
-    
+
 (3) Implementar botão "Carregar mais" que busca mais 10 pokemons e adiciona a lista atual:
     - criar um botão "Carregar mais" logo abaixo da listagem atual
     - buscar os próximos 10 pokemons (offset + 10)
@@ -27,4 +27,3 @@
 (5) Implementar botão para alternar tema entre claro e escuro
     - implementar tema claro e escuro com contex API
     - adicionar um botão para alternar o tema
-    
