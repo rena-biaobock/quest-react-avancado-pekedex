@@ -1,4 +1,39 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+
+const Section = styled.section`
+  border: 1px solid black;
+  padding: 10px;
+`;
+
+const List = styled.ul`
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  gap: 10px;
+`;
+
+const Card = styled.div`
+  width: 100px;
+  height: 160px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+const Img = styled.img`
+  height: 100px;
+  max-width: 100%;
+`;
+
+const Name = styled.p`
+  font-size: 1rem;
+  text-align: center;
+`;
 
 const Pokedex = () => {
   const [pokedex, setPokedex] = useState([]);
@@ -20,19 +55,19 @@ const Pokedex = () => {
   }
 
   async function getRamdomPokemonList(numberOfPokemons) {
-    let pokemonList = [];
+    let randomPokemonList = [];
     for (let i = 0; i < numberOfPokemons; i++) {
       const randomPokemon = await getRandomPokemon();
-      pokemonList = [...pokemonList, randomPokemon];
+      randomPokemonList = [...randomPokemonList, randomPokemon];
     }
-    return pokemonList;
+    return randomPokemonList;
   }
 
   useEffect(() => {
     const updatePokedex = async (numberOfPokemons) => {
       try {
         const randomPokemonList = await getRamdomPokemonList(numberOfPokemons);
-        setPokedex([...pokedex, ...randomPokemonList]);
+        setPokedex((prevPokedex) => [...prevPokedex, ...randomPokemonList]);
       } catch (err) {
         setError("Failed to load data.");
       } finally {
@@ -40,7 +75,7 @@ const Pokedex = () => {
       }
     };
 
-    updatePokedex(10);
+    updatePokedex(5);
   }, []);
 
   if (loading) return <p>Loading...</p>;
@@ -48,13 +83,21 @@ const Pokedex = () => {
 
   return (
     <>
-      <section>
-        <ul>
+      <Section>
+        <List>
           {pokedex.map((pokemon) => (
-            <li key={pokemon.id}>{pokemon.forms[0].name}</li>
+            <li key={pokemon.id}>
+              <Card>
+                <Img
+                  src={pokemon.sprites.other.dream_world.front_default}
+                  alt={pokemon.forms[0].name}
+                />
+                <Name>{pokemon.forms[0].name}</Name>
+              </Card>
+            </li>
           ))}
-        </ul>
-      </section>
+        </List>
+      </Section>
     </>
   );
 };
