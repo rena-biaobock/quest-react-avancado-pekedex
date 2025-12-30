@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import LoadMoreButton from "../LoadMoreButton";
 
 const Section = styled.section`
   border: 1px solid black;
@@ -35,12 +36,12 @@ const Name = styled.p`
   text-align: center;
 `;
 
+const pokemonIDs = Array.from({ length: 1025 }, (_, i) => i + 1);
+
 const Pokedex = () => {
   const [pokedex, setPokedex] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const pokemonIDs = Array.from({ length: 1025 }, (_, i) => i + 1);
 
   async function getPokemon(id) {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -63,18 +64,18 @@ const Pokedex = () => {
     return randomPokemonList;
   }
 
-  useEffect(() => {
-    const updatePokedex = async (numberOfPokemons) => {
-      try {
-        const randomPokemonList = await getRamdomPokemonList(numberOfPokemons);
-        setPokedex((prevPokedex) => [...prevPokedex, ...randomPokemonList]);
-      } catch (err) {
-        setError("Failed to load data.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  async function updatePokedex(numberOfPokemons) {
+    try {
+      const randomPokemonList = await getRamdomPokemonList(numberOfPokemons);
+      setPokedex((prevPokedex) => [...prevPokedex, ...randomPokemonList]);
+    } catch (err) {
+      setError("Failed to load data.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
+  useEffect(() => {
     updatePokedex(5);
   }, []);
 
@@ -98,6 +99,9 @@ const Pokedex = () => {
           ))}
         </List>
       </Section>
+      <LoadMoreButton onClick={() => updatePokedex(10)}>
+        CARREGAR MAIS
+      </LoadMoreButton>
     </>
   );
 };
