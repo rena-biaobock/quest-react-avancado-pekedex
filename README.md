@@ -5,7 +5,7 @@
     - axios (requisição API) ☑️
     - styled-components (CSS) ☑️
 
-(2) Implementar Home Page com 10 pokemons
+(2) Implementar Home Page com 10 pokemons ✅
     - buscar os 10 pokemons na Poke API ☑️
     - renderizar os 10 pokemons na home page (5x2) - imagem e nome ☑️
     - estilizar com styled-components ☑️
