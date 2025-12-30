@@ -11,9 +11,8 @@
     - estilizar com styled-components ☑️
 
 (3) Implementar botão "Carregar mais" que busca mais 10 pokemons e adiciona a lista atual:
-    - criar um botão "Carregar mais" logo abaixo da listagem atual
-    - buscar os próximos 10 pokemons (offset + 10)
-    - inserior os 10 próximos pokemons na home page quando o  botão for clicado
+    - criar um botão "Carregar mais"
+    - adicionar mais 10 pokemons a pokedex quando o botão for clicado
 
 (4) Implementar página interna com detalhes de cada pokemon da lista
     - pagina interna replicavel para cada pokemon da lista:

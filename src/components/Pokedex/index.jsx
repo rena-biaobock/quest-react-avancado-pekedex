@@ -31,7 +31,7 @@ const Img = styled.img`
 `;
 
 const Name = styled.p`
-  font-size: 1rem;
+  font-size: 0.8rem;
   text-align: center;
 `;
 
@@ -92,7 +92,7 @@ const Pokedex = () => {
                   src={pokemon.sprites.other.dream_world.front_default}
                   alt={pokemon.forms[0].name}
                 />
-                <Name>{pokemon.forms[0].name}</Name>
+                <Name>{pokemon.forms[0].name.toUpperCase()}</Name>
               </Card>
             </li>
           ))}
