@@ -13,7 +13,7 @@ const List = styled.ul`
   gap: 10px;
 `;
 
-const Card = styled.div`
+const Card = styled.a`
   width: 100px;
   height: 160px;
   padding: 10px;
@@ -24,6 +24,12 @@ const Card = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+
+  &:hover {
+    cursor: pointer;
+    background: #ffff00;
+    border: 2px solid black;
+  }
 `;
 
 const Img = styled.img`
