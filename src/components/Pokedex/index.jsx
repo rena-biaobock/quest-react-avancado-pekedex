@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import LoadMoreButton from "../LoadMoreButton";
+import { Link } from "react-router-dom";
 
 const Section = styled.section`
   border: 1px solid black;
@@ -13,7 +14,7 @@ const List = styled.ul`
   gap: 10px;
 `;
 
-const Card = styled.a`
+const Card = styled.div`
   width: 100px;
   height: 160px;
   padding: 10px;
@@ -94,13 +95,15 @@ const Pokedex = () => {
         <List>
           {pokedex.map((pokemon) => (
             <li key={pokemon.id}>
-              <Card>
-                <Img
-                  src={pokemon.sprites.other.dream_world.front_default}
-                  alt={pokemon.forms[0].name}
-                />
-                <Name>{pokemon.forms[0].name.toUpperCase()}</Name>
-              </Card>
+              <Link key={pokemon.id} to={`/pokemon/${pokemon.forms[0].name}`}>
+                <Card>
+                  <Img
+                    src={pokemon.sprites.other.dream_world.front_default}
+                    alt={pokemon.forms[0].name}
+                  />
+                  <Name>{pokemon.forms[0].name.toUpperCase()}</Name>
+                </Card>
+              </Link>
             </li>
           ))}
         </List>
