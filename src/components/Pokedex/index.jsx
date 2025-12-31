@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import LoadMoreButton from "../LoadMoreButton";
 import { Link } from "react-router-dom";
+import { getRamdomPokemonList } from "../../utils/getPokemon";
 
 const Section = styled.section`
   border: 1px solid black;
@@ -50,30 +51,12 @@ const Pokedex = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  async function getPokemon(id) {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    return await response.json();
-  }
-
-  async function getRandomPokemon() {
-    const randomIndex = Math.floor(Math.random() * pokemonIDs.length);
-    const randomPokemonID = pokemonIDs.splice(randomIndex, 1)[0];
-    const randomPokemon = await getPokemon(randomPokemonID);
-    return randomPokemon;
-  }
-
-  async function getRamdomPokemonList(numberOfPokemons) {
-    let randomPokemonList = [];
-    for (let i = 0; i < numberOfPokemons; i++) {
-      const randomPokemon = await getRandomPokemon();
-      randomPokemonList = [...randomPokemonList, randomPokemon];
-    }
-    return randomPokemonList;
-  }
-
   async function updatePokedex(numberOfPokemons) {
     try {
-      const randomPokemonList = await getRamdomPokemonList(numberOfPokemons);
+      const randomPokemonList = await getRamdomPokemonList(
+        numberOfPokemons,
+        pokemonIDs
+      );
       setPokedex((prevPokedex) => [...prevPokedex, ...randomPokemonList]);
     } catch (err) {
       setError("Failed to load data.");
@@ -95,7 +78,7 @@ const Pokedex = () => {
         <List>
           {pokedex.map((pokemon) => (
             <li key={pokemon.id}>
-              <Link key={pokemon.id} to={`/pokemon/${pokemon.forms[0].name}`}>
+              <Link key={pokemon.id} to={`/pokemon/${pokemon.id}`}>
                 <Card>
                   <Img
                     src={pokemon.sprites.other.dream_world.front_default}
