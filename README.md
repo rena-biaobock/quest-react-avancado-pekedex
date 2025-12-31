@@ -22,6 +22,7 @@
         - lista de habilidades (nome e texto descritivo)
         - tipo do pokemon
     - evento de click no pokemon da lista para acessar a sua respectiva pagina
+    - estilizar a pagina do pokemon
 
 (5) Implementar botão para alternar tema entre claro e escuro
     - implementar tema claro e escuro com contex API
