@@ -51,21 +51,21 @@ const Pokedex = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function updatePokedex(numberOfPokemons) {
-      try {
-        const randomPokemonList = await getRamdomPokemonList(
-          numberOfPokemons,
-          pokemonIDs
-        );
-        setPokedex((prevPokedex) => [...prevPokedex, ...randomPokemonList]);
-      } catch (err) {
-        setError("Failed to load data.");
-      } finally {
-        setLoading(false);
-      }
+  async function updatePokedex(numberOfPokemons) {
+    try {
+      const randomPokemonList = await getRamdomPokemonList(
+        numberOfPokemons,
+        pokemonIDs
+      );
+      setPokedex((prevPokedex) => [...prevPokedex, ...randomPokemonList]);
+    } catch (err) {
+      setError("Failed to load data.");
+    } finally {
+      setLoading(false);
     }
+  }
 
+  useEffect(() => {
     updatePokedex(5);
   }, []);
 
