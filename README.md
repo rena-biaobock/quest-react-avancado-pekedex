@@ -29,3 +29,8 @@
 (5) Implementar botão para alternar tema entre claro e escuro
     - implementar tema claro e escuro com contex API
     - adicionar um botão para alternar o tema
+
+(6) Refatorar / Ajustes finais
+    - alterar fetch para axios
+    - implementar React Query
+    - refatorar estilos CSS
