@@ -5,15 +5,20 @@ export async function getPokemon(id) {
   return response.data;
 }
 
-function pickRandomIDs(allIDs, count) {
-  const shuffled = [...allIDs].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
+async function getRandomPokemon(pokemonIDs) {
+  const randomIndex = Math.floor(Math.random() * pokemonIDs.length);
+  const randomPokemonID = pokemonIDs.splice(randomIndex, 1)[0];
+  const randomPokemon = await getPokemon(randomPokemonID);
+  return randomPokemon;
 }
 
 export async function getRamdomPokemonList(numberOfPokemons, pokemonIDs) {
-  const randomIDs = pickRandomIDs(pokemonIDs, numberOfPokemons);
-  const promises = randomIDs.map((id) => getPokemon(id));
-  return Promise.all(promises);
+  let randomPokemonList = [];
+  for (let i = 0; i < numberOfPokemons; i++) {
+    const randomPokemon = await getRandomPokemon(pokemonIDs);
+    randomPokemonList = [...randomPokemonList, randomPokemon];
+  }
+  return randomPokemonList;
 }
 
 export function capitalizeFirstLetter(val) {
