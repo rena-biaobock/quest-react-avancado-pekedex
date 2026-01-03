@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Pokedex from "../Pokedex";
+import ThemeToggler from "../ThemeToggler";
 
 const Main = styled.main`
   width: 100vw;
@@ -28,6 +29,7 @@ const HomePage = () => {
     <>
       <Main>
         <PokedexSection>
+          <ThemeToggler />
           <Tittle>Pokedex:</Tittle>
           <Pokedex />
         </PokedexSection>
