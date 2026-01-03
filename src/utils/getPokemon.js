@@ -19,6 +19,10 @@ export async function getRamdomPokemonList(numberOfPokemons, pokemonIDs) {
   return randomPokemonList;
 }
 
+export function capitalizeFirstLetter(val) {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
 export async function getEnglishAbilityDescription(abilityURL) {
   const response = await fetch(`${abilityURL}`);
   const abilityData = await response.json();

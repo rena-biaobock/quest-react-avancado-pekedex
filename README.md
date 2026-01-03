@@ -14,7 +14,7 @@
     - criar um botão "Carregar mais" no final da pokedex ☑️
     - adicionar mais 10 pokemons na pokedex quando o botão for clicado ☑️
 
-(4) Implementar página interna com detalhes de cada pokemon da lista
+(4) Implementar página interna com detalhes de cada pokemon da lista ✅
     - pagina interna replicavel para cada pokemon da lista ☑️
         - imagem ☑️
         - nome ☑️
@@ -24,7 +24,7 @@
              - texto descritivo ☑️
         - tipo do pokemon ☑️
     - evento de click no pokemon da lista para acessar a sua respectiva pagina ☑️
-    - estilizar a pagina do pokemon
+    - estilizar a pagina do pokemon ☑️
 
 (5) Implementar botão para alternar tema entre claro e escuro
     - implementar tema claro e escuro com contex API

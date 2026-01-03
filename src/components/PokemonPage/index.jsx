@@ -3,7 +3,99 @@ import { useEffect, useState } from "react";
 import {
   getPokemon,
   getEnglishAbilityDescription,
+  capitalizeFirstLetter,
 } from "../../utils/getPokemon";
+import styled from "styled-components";
+
+const Main = styled.main`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+`;
+
+const DivContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 700px;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+`;
+
+const DivInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: black;
+  padding; 20px;
+`;
+
+const Img = styled.img`
+  max-width: 300px;
+`;
+
+const TittleH1 = styled.h1`
+  font-size: 2rem;
+`;
+
+const TittleH2 = styled.h2`
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  border-bottom: 1px solid black;
+`;
+
+const TittleH2NoBorder = styled.h2`
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  margin-right: 10px;
+`;
+
+const TypeSection = styled.section`
+  display: flex;
+  align-items: center;
+`;
+
+const TypeList = styled.ul`
+  display: flex;
+  gap: 5px;
+`;
+
+const TypeItem = styled.li`
+  padding: 2px;
+  background: #3b4cca;
+  color: #fff;
+  border-radius: 10px;
+`;
+
+const AbilityList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: justify;
+`;
+
+const SkillTittle = styled.h3`
+  font-size: 1rem;
+  margin-bottom: 2px;
+`;
+
+const MovesList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  text-align: center;
+`;
+
+const Move = styled.li`
+  margin: 2px;
+  padding: 1px;
+  background: #3b4cca;
+  color: #fff;
+  border-radius: 10px;
+`;
 
 const PokemonPage = () => {
   const { pokemonID } = useParams();
@@ -48,36 +140,52 @@ const PokemonPage = () => {
 
   return (
     <>
-      <img
-        src={pokemon.sprites.other.dream_world.front_default}
-        alt={pokemon.name}
-      />
+      <Main>
+        <DivContainer>
+          <Img
+            src={pokemon.sprites.other.dream_world.front_default}
+            alt={pokemon.name}
+          />
 
-      <h1>{pokemon.name}</h1>
+          <TittleH1>{pokemon.name.toUpperCase()}</TittleH1>
 
-      <h2>Movements:</h2>
-      <ul>
-        {pokemon.moves.map(({ move }) => (
-          <li key={move.name}>{move.name}</li>
-        ))}
-      </ul>
+          <DivInfo>
+            <TypeSection>
+              <TittleH2NoBorder>Type:</TittleH2NoBorder>
+              <TypeList>
+                {pokemon.types.map(({ type }) => (
+                  <TypeItem key={type.name}>{type.name}</TypeItem>
+                ))}
+              </TypeList>
+            </TypeSection>
 
-      <h2>Skills:</h2>
-      <ul>
-        {pokemon.abilities.map(({ ability }) => (
-          <li key={ability.name}>
-            <h3>{ability.name}</h3>
-            <p>{abilityDescriptions[ability.name]}</p>
-          </li>
-        ))}
-      </ul>
+            <section>
+              <TittleH2>Skills</TittleH2>
+              <AbilityList>
+                {pokemon.abilities.map(({ ability }) => (
+                  <li key={ability.name}>
+                    <SkillTittle>
+                      {capitalizeFirstLetter(ability.name)}
+                    </SkillTittle>
+                    <p>{abilityDescriptions[ability.name]}</p>
+                  </li>
+                ))}
+              </AbilityList>
+            </section>
 
-      <h2>Type:</h2>
-      <ul>
-        {pokemon.types.map(({ type }) => (
-          <li key={type.name}>{type.name}</li>
-        ))}
-      </ul>
+            <section>
+              <TittleH2>Moves</TittleH2>
+              <MovesList>
+                {pokemon.moves.map(({ move }) => (
+                  <Move key={move.name}>
+                    {capitalizeFirstLetter(move.name)}
+                  </Move>
+                ))}
+              </MovesList>
+            </section>
+          </DivInfo>
+        </DivContainer>
+      </Main>
     </>
   );
 };
