@@ -9,6 +9,8 @@ const Main = styled.main`
   align-items: center;
   justify-content: center;
   gap: 20px;
+  background: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const PokedexSection = styled.section`
