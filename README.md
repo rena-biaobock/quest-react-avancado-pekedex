@@ -21,7 +21,7 @@
         - lista de movimentos ☑️
         - lista de habilidades ☑️
              - nome ☑️
-             - texto descritivo
+             - texto descritivo ☑️
         - tipo do pokemon ☑️
     - evento de click no pokemon da lista para acessar a sua respectiva pagina ☑️
     - estilizar a pagina do pokemon

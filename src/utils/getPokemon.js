@@ -18,3 +18,12 @@ export async function getRamdomPokemonList(numberOfPokemons, pokemonIDs) {
   }
   return randomPokemonList;
 }
+
+export async function getEnglishAbilityDescription(abilityURL) {
+  const response = await fetch(`${abilityURL}`);
+  const abilityData = await response.json();
+  const englishDescription =
+    abilityData.effect_entries.find((entry) => entry.language.name === "en")
+      ?.effect ?? "No description available";
+  return englishDescription;
+}

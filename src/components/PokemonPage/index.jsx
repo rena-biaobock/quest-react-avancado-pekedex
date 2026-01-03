@@ -1,11 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getPokemon } from "../../utils/getPokemon";
+import {
+  getPokemon,
+  getEnglishAbilityDescription,
+} from "../../utils/getPokemon";
 
 const PokemonPage = () => {
   const { pokemonID } = useParams();
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [abilityDescriptions, setAbilityDescriptions] = useState({});
 
   useEffect(() => {
     async function fetchPokemon() {
@@ -21,6 +25,23 @@ const PokemonPage = () => {
 
     fetchPokemon();
   }, [pokemonID]);
+
+  useEffect(() => {
+    if (!pokemon) return;
+
+    async function fetchAbilities() {
+      const entries = await Promise.all(
+        pokemon.abilities.map(async ({ ability }) => {
+          const description = await getEnglishAbilityDescription(ability.url);
+          return [ability.name, description];
+        })
+      );
+
+      setAbilityDescriptions(Object.fromEntries(entries));
+    }
+
+    fetchAbilities();
+  }, [pokemon]);
 
   if (loading) return <p>Loading...</p>;
   if (!pokemon) return <p>Pokemon not found</p>;
@@ -44,7 +65,10 @@ const PokemonPage = () => {
       <h2>Skills:</h2>
       <ul>
         {pokemon.abilities.map(({ ability }) => (
-          <li key={ability.name}>{ability.name}</li>
+          <li key={ability.name}>
+            <h3>{ability.name}</h3>
+            <p>{abilityDescriptions[ability.name]}</p>
+          </li>
         ))}
       </ul>
 
