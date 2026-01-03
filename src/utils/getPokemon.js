@@ -1,6 +1,8 @@
+import axios from "axios";
+
 export async function getPokemon(id) {
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-  return await response.json();
+  const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  return response.data;
 }
 
 async function getRandomPokemon(pokemonIDs) {
@@ -24,8 +26,8 @@ export function capitalizeFirstLetter(val) {
 }
 
 export async function getEnglishAbilityDescription(abilityURL) {
-  const response = await fetch(`${abilityURL}`);
-  const abilityData = await response.json();
+  const response = await axios.get(`${abilityURL}`);
+  const abilityData = response.data;
   const englishDescription =
     abilityData.effect_entries.find((entry) => entry.language.name === "en")
       ?.effect ?? "No description available";
