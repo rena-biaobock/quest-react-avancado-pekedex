@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import LoadMoreButton from "../LoadMoreButton";
 import { Link } from "react-router-dom";
 import { getRamdomPokemonList } from "../../utils/getPokemon";
+import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 
 const Section = styled.section`
   border: 1px solid black;
@@ -45,32 +46,32 @@ const Name = styled.p`
 `;
 
 const pokemonIDs = Array.from({ length: 1025 }, (_, i) => i + 1);
+const numberOfPokemons = 10;
 
 const Pokedex = () => {
   const [pokedex, setPokedex] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  async function updatePokedex(numberOfPokemons) {
-    try {
-      const randomPokemonList = await getRamdomPokemonList(
-        numberOfPokemons,
-        pokemonIDs
-      );
-      setPokedex((prevPokedex) => [...prevPokedex, ...randomPokemonList]);
-    } catch (err) {
-      setError("Failed to load data.");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const { data, isFetching, isError, error, refetch, isSuccess } = useQuery({
+    queryKey: ["random-pokemon-batch"],
+    queryFn: () => getRamdomPokemonList(numberOfPokemons, pokemonIDs),
+    enabled: false,
+  });
 
   useEffect(() => {
-    updatePokedex(5);
+    if (isSuccess && data) {
+      setPokedex((prev) => [...prev, ...data]);
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    refetch();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  const handleLoadMore = () => {
+    refetch();
+  };
+
+  if (isError) return <p>{error.message}</p>;
 
   return (
     <>
@@ -91,8 +92,8 @@ const Pokedex = () => {
           ))}
         </List>
       </Section>
-      <LoadMoreButton onClick={() => updatePokedex(10)}>
-        CARREGAR MAIS
+      <LoadMoreButton onClick={handleLoadMore} disabled={isFetching}>
+        {isFetching ? "CARREGANDO..." : "CARREGAR MAIS"}
       </LoadMoreButton>
     </>
   );
