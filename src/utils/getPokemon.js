@@ -33,3 +33,16 @@ export async function getEnglishAbilityDescription(abilityURL) {
       ?.effect ?? "No description available";
   return englishDescription;
 }
+
+export async function getAbilities(pokemon) {
+  if (!pokemon) return {};
+
+  const entries = await Promise.all(
+    pokemon.abilities.map(async ({ ability }) => {
+      const description = await getEnglishAbilityDescription(ability.url);
+      return [ability.name, description];
+    })
+  );
+
+  return Object.fromEntries(entries);
+}

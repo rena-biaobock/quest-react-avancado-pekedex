@@ -32,6 +32,6 @@
     - estilizar botão de tema ☑️
 
 (6) Refatorar / Ajustes finais
-    - alterar fetch para axios
-    - implementar React Query
+    - alterar fetch para axios ☑️
+    - implementar React Query ☑️
     - refatorar estilos CSS

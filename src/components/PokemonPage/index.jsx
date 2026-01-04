@@ -2,10 +2,11 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   getPokemon,
-  getEnglishAbilityDescription,
   capitalizeFirstLetter,
+  getAbilities,
 } from "../../utils/getPokemon";
 import styled from "styled-components";
+import { useQuery } from "@tanstack/react-query";
 
 const Main = styled.main`
   width: 100vw;
@@ -99,43 +100,26 @@ const Move = styled.li`
 
 const PokemonPage = () => {
   const { pokemonID } = useParams();
-  const [pokemon, setPokemon] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [abilityDescriptions, setAbilityDescriptions] = useState({});
 
-  useEffect(() => {
-    async function fetchPokemon() {
-      try {
-        const data = await getPokemon(pokemonID);
-        setPokemon(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
+  const pokemonQuery = useQuery({
+    queryKey: ["pokemon", pokemonID],
+    queryFn: () => getPokemon(pokemonID),
+    enabled: !!pokemonID,
+    staleTime: 1000 * 60 * 5,
+  });
 
-    fetchPokemon();
-  }, [pokemonID]);
+  const pokemon = pokemonQuery.data;
 
-  useEffect(() => {
-    if (!pokemon) return;
+  const abilityQuery = useQuery({
+    queryKey: ["ability", pokemon?.id],
+    queryFn: () => getAbilities(pokemon),
+    enabled: !!pokemon,
+    staleTime: 1000 * 60 * 5,
+  });
 
-    async function fetchAbilities() {
-      const entries = await Promise.all(
-        pokemon.abilities.map(async ({ ability }) => {
-          const description = await getEnglishAbilityDescription(ability.url);
-          return [ability.name, description];
-        })
-      );
+  const abilityDescriptions = abilityQuery.data ?? {};
 
-      setAbilityDescriptions(Object.fromEntries(entries));
-    }
-
-    fetchAbilities();
-  }, [pokemon]);
-
-  if (loading) return <p>Loading...</p>;
+  if (pokemonQuery.isLoading) return <p>Loading...</p>;
   if (!pokemon) return <p>Pokemon not found</p>;
 
   return (
@@ -143,7 +127,10 @@ const PokemonPage = () => {
       <Main>
         <DivContainer>
           <Img
-            src={pokemon.sprites.other.dream_world.front_default}
+            src={
+              pokemon.sprites.other.dream_world.front_default ??
+              pokemon.sprites.front_default
+            }
             alt={pokemon.name}
           />
 
@@ -167,7 +154,13 @@ const PokemonPage = () => {
                     <SkillTittle>
                       {capitalizeFirstLetter(ability.name)}
                     </SkillTittle>
-                    <p>{abilityDescriptions[ability.name]}</p>
+                    <p>
+                      {abilityQuery.isLoading ? (
+                        <p>Loading ability description...</p>
+                      ) : (
+                        abilityDescriptions[ability.name]
+                      )}
+                    </p>
                   </li>
                 ))}
               </AbilityList>
