@@ -67,10 +67,6 @@ const Pokedex = () => {
     refetch();
   }, []);
 
-  const handleLoadMore = () => {
-    refetch();
-  };
-
   if (isError) return <p>{error.message}</p>;
 
   return (
@@ -92,7 +88,7 @@ const Pokedex = () => {
           ))}
         </List>
       </Section>
-      <LoadMoreButton onClick={handleLoadMore} disabled={isFetching}>
+      <LoadMoreButton onClick={refetch} disabled={isFetching}>
         {isFetching ? "CARREGANDO..." : "CARREGAR MAIS"}
       </LoadMoreButton>
     </>
