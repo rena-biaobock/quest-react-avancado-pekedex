@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Pokedex from "../Pokedex";
-import ThemeToggler from "../ThemeToggler";
+import Header from "../Header";
 
 const Main = styled.main`
   width: 100vw;
@@ -8,10 +8,8 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 20px;
-  background: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.text};
+  background: ${({ theme }) => theme.colors.background};  
 `;
 
 const PokedexSection = styled.section`
@@ -28,8 +26,8 @@ const HomePage = () => {
   return (
     <>
       <Main>
+        <Header />
         <PokedexSection>
-          <ThemeToggler />
           <Tittle>Pokedex:</Tittle>
           <Pokedex />
         </PokedexSection>

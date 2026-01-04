@@ -2,16 +2,24 @@ import styled from "styled-components";
 import { useTheme } from "../../context/ThemeContext";
 
 const TogglerButton = styled.button`
-  width: 30px;
   height: 30px;
-  border-radius: 50%;
+  width: 30px;
   border: none;
-  align-self: flex-end;
-  background: #cc0000;
+  cursor: pointer;
+  background: transparent;
+  transition: 0.3s;
 
   &:hover {
-    background: #ff0000;
+    transform: scale(1.1);
   }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+const Icon = styled.img`
+  height: 100%;
 `;
 
 export default function ThemeToggler() {
@@ -19,7 +27,13 @@ export default function ThemeToggler() {
 
   return (
     <TogglerButton onClick={toggleTheme}>
-      <span>{theme === "light" ? "☀️" : "🌙"}</span>
+      <span>
+        {theme === "light" ? (
+          <Icon src="../../../public/sun.png" alt="icon-sun" />
+        ) : (
+          <Icon src="../../../public/moon.png" alt="icon-monn" />
+        )}
+      </span>
     </TogglerButton>
   );
 }
