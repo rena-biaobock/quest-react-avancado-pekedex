@@ -81,7 +81,10 @@ const Pokedex = () => {
               <Link key={pokemon.id} to={`/pokemon/${pokemon.id}`}>
                 <Card>
                   <Img
-                    src={pokemon.sprites.other.dream_world.front_default}
+                    src={
+                      pokemon.sprites.other.dream_world.front_default ??
+                      pokemon.sprites.front_default
+                    }
                     alt={pokemon.forms[0].name}
                   />
                   <Name>{pokemon.forms[0].name.toUpperCase()}</Name>
