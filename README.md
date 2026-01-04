@@ -33,5 +33,5 @@
 
 (6) Refatorar / Ajustes finais
     - alterar fetch para axios ☑️
-    - implementar React Query
+    - implementar React Query ☑️
     - refatorar estilos CSS
