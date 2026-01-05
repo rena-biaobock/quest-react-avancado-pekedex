@@ -6,13 +6,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 
 const Section = styled.section`
-  border: 1px solid black;
-  padding: 10px;
+  display: flex;
+  border-radius: 10px;
 `;
 
 const List = styled.ul`
-  display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 `;
 
@@ -27,11 +27,14 @@ const Card = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+  background: rgba(255, 222, 0, 0.5);
+  color: #000;
 
   &:hover {
     cursor: pointer;
-    background: #ffff00;
-    border: 2px solid black;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px 2px ${({ theme }) => theme.colors.boxshadow};
+    background: rgba(255, 222, 0, 1);
   }
 `;
 

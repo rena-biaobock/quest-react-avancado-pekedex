@@ -9,13 +9,14 @@ const Main = styled.main`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  background: ${({ theme }) => theme.colors.background};  
+  background: ${({ theme }) => theme.colors.background};
 `;
 
 const PokedexSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 90vw;
 `;
 
 const Tittle = styled.h1`

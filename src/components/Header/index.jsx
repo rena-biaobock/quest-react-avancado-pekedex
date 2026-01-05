@@ -9,7 +9,7 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20px;
+  padding: 0 5vw;
 `;
 
 const PokemonLogo = styled.img`
