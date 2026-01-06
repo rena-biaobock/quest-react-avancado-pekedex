@@ -5,14 +5,15 @@ const Button = styled.button`
   align-self: center;
   padding: 10px;
   border: none;
-  background: oklch(0.4583 0.2437 300.28);
+  background: #cc0000;
   color: white;
   border-radius: 10px;
   transition: 0.3s;
   font-weight: 700;
+  margin: 20px 0px;
 
   &:hover {
-    background: oklch(0.6198 0.2437 300.28);
+    background: #ff0000;
     cursor: pointer;
   }
 `;
