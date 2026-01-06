@@ -21,6 +21,8 @@ const PokedexSection = styled.section`
 
 const Tittle = styled.h1`
   text-decoration: bold;
+  margin-bottom: 10px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const HomePage = () => {
@@ -29,7 +31,7 @@ const HomePage = () => {
       <Main>
         <Header />
         <PokedexSection>
-          <Tittle>Pokedex:</Tittle>
+          <Tittle>Pokédex</Tittle>
           <Pokedex />
         </PokedexSection>
       </Main>
