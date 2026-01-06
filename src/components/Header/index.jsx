@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ThemeToggler from "../ThemeToggler";
 import { Link } from "react-router-dom";
+import pokemonLogo from "../../assets/pokemon_logo.svg";
 
 const StyledHeader = styled.header`
   width: 100vw;
@@ -55,7 +56,7 @@ const NavListItem = styled.li`
 const Header = () => {
   return (
     <StyledHeader>
-      <PokemonLogo src="../../../public/pokemon_logo.svg" alt="pokemon-logo" />
+      <PokemonLogo src={pokemonLogo} alt="pokemon-logo" />
 
       <NavContainer>
         <NavMenu>

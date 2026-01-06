@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { useTheme } from "../../context/ThemeContext";
+import iconSun from "../../assets/icons/sun.png";
+import iconMoon from "../../assets/icons/moon.png";
 
 const TogglerButton = styled.button`
   height: 30px;
@@ -29,9 +31,9 @@ export default function ThemeToggler() {
     <TogglerButton onClick={toggleTheme}>
       <span>
         {theme === "light" ? (
-          <Icon src="../../../public/sun.png" alt="icon-sun" />
+          <Icon src={iconSun} alt="icon-sun" />
         ) : (
-          <Icon src="../../../public/moon.png" alt="icon-monn" />
+          <Icon src={iconMoon} alt="icon-monn" />
         )}
       </span>
     </TogglerButton>
