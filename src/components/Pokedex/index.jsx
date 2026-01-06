@@ -21,14 +21,14 @@ const Card = styled.div`
   height: 160px;
   padding: 10px;
   border-radius: 10px;
-  border: 1px solid black;
+  border: 1px solid ${({ theme }) => theme.colors.border};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
   background: rgba(255, 222, 0, 0.5);
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
 
   &:hover {
     cursor: pointer;
