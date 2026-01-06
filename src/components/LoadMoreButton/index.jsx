@@ -18,8 +18,8 @@ const Button = styled.button`
   }
 `;
 
-const LoadMoreButton = ({ onClick }) => {
-  return <Button onClick={onClick}>CARREGAR MAIS</Button>;
+const LoadMoreButton = ({ onClick, children }) => {
+  return <Button onClick={onClick}>{children}</Button>;
 };
 
 export default LoadMoreButton;
