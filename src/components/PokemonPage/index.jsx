@@ -7,6 +7,7 @@ import {
 } from "../../utils/getPokemon";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
+import Header from "../Header";
 
 const Main = styled.main`
   width: 100vw;
@@ -124,6 +125,7 @@ const PokemonPage = () => {
 
   return (
     <>
+      <Header />
       <Main>
         <DivContainer>
           <Img
