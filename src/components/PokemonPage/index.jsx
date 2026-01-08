@@ -14,7 +14,8 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 50px;
+  background: ${({ theme }) => theme.colors.background};
 `;
 
 const DivContainer = styled.div`
@@ -26,13 +27,14 @@ const DivContainer = styled.div`
   max-width: 700px;
   border: 2px solid #ff0000;
   border-radius: 10px;
+  box-shadow: 0px 5px 10px ${({ theme }) => theme.colors.boxshadow};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const DivInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  color: black;
   padding; 20px;
 `;
 
@@ -46,8 +48,8 @@ const TittleH1 = styled.h1`
 
 const TittleH2 = styled.h2`
   font-size: 1.5rem;
-  margin-bottom: 5px;
-  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 const TittleH2NoBorder = styled.h2`
@@ -67,7 +69,7 @@ const TypeList = styled.ul`
 `;
 
 const TypeItem = styled.li`
-  padding: 2px;
+  padding: 5px;
   background: #3b4cca;
   color: #fff;
   border-radius: 10px;
@@ -89,14 +91,21 @@ const MovesList = styled.ul`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   text-align: center;
+  gap: 5px;
 `;
 
 const Move = styled.li`
-  margin: 2px;
-  padding: 1px;
-  background: #3b4cca;
+  padding: 5px;
+  background: oklch(0.4838 0.1944 271.14 / 100%);
   color: #fff;
   border-radius: 10px;
+  font-size: 0.8rem;
+  transition: 0.3s;
+
+  &:hover {
+    background: oklch(0.4838 0.1944 271.14 / 50%);
+    cursor: pointer;
+  }
 `;
 
 const PokemonPage = () => {
