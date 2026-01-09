@@ -165,13 +165,12 @@ const PokemonPage = () => {
                     <SkillTittle>
                       {capitalizeFirstLetter(ability.name)}
                     </SkillTittle>
-                    <p>
-                      {abilityQuery.isLoading ? (
-                        <p>Loading ability description...</p>
-                      ) : (
-                        abilityDescriptions[ability.name]
-                      )}
-                    </p>
+
+                    {abilityQuery.isLoading ? (
+                      <p>Loading ability description...</p>
+                    ) : (
+                      abilityDescriptions[ability.name]
+                    )}
                   </li>
                 ))}
               </AbilityList>
