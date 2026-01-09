@@ -51,16 +51,22 @@ const pokemonIDs = Array.from({ length: 1025 }, (_, i) => i + 1);
 const numberOfPokemons = 10;
 
 const Pokedex = () => {
-  const { data, fetchNextPage, isFetchingNextPage, isError, error } =
-    useInfiniteQuery({
-      queryKey: ["random-pokemon"],
-      queryFn: ({ pageParam = [] }) =>
-        getRamdomPokemonList(numberOfPokemons, pokemonIDs, pageParam),
-      getNextPageParam: (lastPage, allPages) => {
-        return allPages.flat().map((pokemon) => pokemon.id);
-      },
-      staleTime: 1000 * 60 * 5,
-    });
+  const {
+    data,
+    fetchNextPage,
+    isFetchingNextPage,
+    isError,
+    error,
+    isFetching,
+  } = useInfiniteQuery({
+    queryKey: ["random-pokemon"],
+    queryFn: ({ pageParam = [] }) =>
+      getRamdomPokemonList(numberOfPokemons, pokemonIDs, pageParam),
+    getNextPageParam: (lastPage, allPages) => {
+      return allPages.flat().map((pokemon) => pokemon.id);
+    },
+    staleTime: 1000 * 60 * 5,
+  });
 
   if (isError) return <p>{error.message}</p>;
 
@@ -89,8 +95,8 @@ const Pokedex = () => {
         </List>
       </Section>
 
-      <LoadMoreButton onClick={fetchNextPage} disabled={isFetchingNextPage}>
-        {isFetchingNextPage ? "CARREGANDO..." : "CARREGAR MAIS"}
+      <LoadMoreButton onClick={fetchNextPage} disabled={isFetching}>
+        {isFetching ? "CARREGANDO..." : "CARREGAR MAIS"}
       </LoadMoreButton>
     </>
   );
