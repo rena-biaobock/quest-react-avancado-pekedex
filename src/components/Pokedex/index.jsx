@@ -51,25 +51,16 @@ const pokemonIDs = Array.from({ length: 1025 }, (_, i) => i + 1);
 const numberOfPokemons = 10;
 
 const Pokedex = () => {
-  const {
-    data,
-    fetchNextPage,
-    isFetchingNextPage,
-    isError,
-    error,
-  } = useInfiniteQuery({
-    queryKey: ["random-pokemon"],
-    queryFn: ({ pageParam = [] }) =>
-      getRamdomPokemonList(
-        numberOfPokemons,
-        pokemonIDs,
-        pageParam
-      ),
-    getNextPageParam: (lastPage, allPages) => {
-      return allPages.flat().map((pokemon) => pokemon.id);
-    },
-    staleTime: 1000 * 60 * 5,
-  });
+  const { data, fetchNextPage, isFetchingNextPage, isError, error } =
+    useInfiniteQuery({
+      queryKey: ["random-pokemon"],
+      queryFn: ({ pageParam = [] }) =>
+        getRamdomPokemonList(numberOfPokemons, pokemonIDs, pageParam),
+      getNextPageParam: (lastPage, allPages) => {
+        return allPages.flat().map((pokemon) => pokemon.id);
+      },
+      staleTime: 1000 * 60 * 5,
+    });
 
   if (isError) return <p>{error.message}</p>;
 
@@ -90,9 +81,7 @@ const Pokedex = () => {
                     }
                     alt={pokemon.forms[0].name}
                   />
-                  <Name>
-                    {pokemon.forms[0].name.toUpperCase()}
-                  </Name>
+                  <Name>{pokemon.forms[0].name.toUpperCase()}</Name>
                 </Card>
               </Link>
             </li>
@@ -100,10 +89,7 @@ const Pokedex = () => {
         </List>
       </Section>
 
-      <LoadMoreButton
-        onClick={fetchNextPage}
-        disabled={isFetchingNextPage}
-      >
+      <LoadMoreButton onClick={fetchNextPage} disabled={isFetchingNextPage}>
         {isFetchingNextPage ? "CARREGANDO..." : "CARREGAR MAIS"}
       </LoadMoreButton>
     </>
