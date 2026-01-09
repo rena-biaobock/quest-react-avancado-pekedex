@@ -2,8 +2,7 @@ import styled from "styled-components";
 import LoadMoreButton from "../LoadMoreButton";
 import { Link } from "react-router-dom";
 import { getRamdomPokemonList } from "../../utils/getPokemon";
-import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const Section = styled.section`
   display: flex;
@@ -52,25 +51,29 @@ const pokemonIDs = Array.from({ length: 1025 }, (_, i) => i + 1);
 const numberOfPokemons = 10;
 
 const Pokedex = () => {
-  const [pokedex, setPokedex] = useState([]);
-
-  const { data, isFetching, isError, error, refetch, isSuccess } = useQuery({
-    queryKey: ["random-pokemon-batch"],
-    queryFn: () => getRamdomPokemonList(numberOfPokemons, pokemonIDs),
-    enabled: false,
+  const {
+    data,
+    fetchNextPage,
+    isFetchingNextPage,
+    isError,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ["random-pokemon"],
+    queryFn: ({ pageParam = [] }) =>
+      getRamdomPokemonList(
+        numberOfPokemons,
+        pokemonIDs,
+        pageParam
+      ),
+    getNextPageParam: (lastPage, allPages) => {
+      return allPages.flat().map((pokemon) => pokemon.id);
+    },
+    staleTime: 1000 * 60 * 5,
   });
 
-  useEffect(() => {
-    if (isSuccess && data) {
-      setPokedex((prev) => [...prev, ...data]);
-    }
-  }, [isSuccess, data]);
-
-  useEffect(() => {
-    refetch();
-  }, []);
-
   if (isError) return <p>{error.message}</p>;
+
+  const pokedex = data?.pages.flat() ?? [];
 
   return (
     <>
@@ -78,7 +81,7 @@ const Pokedex = () => {
         <List>
           {pokedex.map((pokemon) => (
             <li key={pokemon.id}>
-              <Link key={pokemon.id} to={`/pokemon/${pokemon.id}`}>
+              <Link to={`/pokemon/${pokemon.id}`}>
                 <Card>
                   <Img
                     src={
@@ -87,15 +90,21 @@ const Pokedex = () => {
                     }
                     alt={pokemon.forms[0].name}
                   />
-                  <Name>{pokemon.forms[0].name.toUpperCase()}</Name>
+                  <Name>
+                    {pokemon.forms[0].name.toUpperCase()}
+                  </Name>
                 </Card>
               </Link>
             </li>
           ))}
         </List>
       </Section>
-      <LoadMoreButton onClick={refetch} disabled={isFetching}>
-        {isFetching ? "CARREGANDO..." : "CARREGAR MAIS"}
+
+      <LoadMoreButton
+        onClick={fetchNextPage}
+        disabled={isFetchingNextPage}
+      >
+        {isFetchingNextPage ? "CARREGANDO..." : "CARREGAR MAIS"}
       </LoadMoreButton>
     </>
   );
